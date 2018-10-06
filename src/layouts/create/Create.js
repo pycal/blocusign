@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
+import Upload from './Upload';
 import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
 
 class Create extends Component {
+  constructor() {
+    super();
+    this.onUpload = this.onUpload.bind(this);
+  }
+
+  onUpload(fileHash) {
+    console.log('fileHash', fileHash);
+     // href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
+  }
   render() {
     return (
       <main className="container">
@@ -13,8 +23,14 @@ class Create extends Component {
           </div>
 
           <div className="pure-u-1-1">
+            <h2>Upload Document</h2>
+            <Upload onUpload={this.onUpload}/>
+            <br/><br/>
+          </div>
+
+          <div className="pure-u-1-1">
             <h2>Active Account</h2>
-            <AccountData accountIndex="0" units="ether" precision="3" />
+
 
             <br/><br/>
           </div>
