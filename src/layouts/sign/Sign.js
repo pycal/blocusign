@@ -20,7 +20,9 @@ class Sign extends Component {
             <br/>
             <ContractData contract="BlocUSign" method="documentSignatory" methodArgs={this.props.documentId} />
             <br/>
-            {/* <IPFSImageFromContractData contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} />  */}
+            <IPFSImageFromContractData contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /> 
+            <br/>
+            <ContractForm contract="BlocUSign" method="sign" />
           </div>
         </div>
       </main>
