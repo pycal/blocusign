@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
-import logo from '../../logo.png'
 
-class Home extends Component {
+class Create extends Component {
   render() {
     return (
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1 header">
-            <img src={logo} alt="drizzle-logo" />
-            <h1>Drizzle Examples</h1>
-            <p>Examples of how to get started with Drizzle in various situations.</p>
+            <h1>BlocUSign</h1>
 
             <br/><br/>
           </div>
@@ -21,10 +18,18 @@ class Home extends Component {
 
             <br/><br/>
           </div>
+
+          <div className="pure-u-1-1">
+            <ContractData contract="BlocUSign" method="symbol" />
+            <ContractData contract="BlocUSign" method="name" />
+
+            <ContractForm contract="BlocUSign" method="createDocument" />
+            <ContractForm contract="BlocUSign" method="sign" />
+          </div>
         </div>
       </main>
     )
   }
 }
 
-export default Home
+export default Create

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router'
-import HomeContainer from './layouts/home/HomeContainer'
-
+import CreateContainer from './layouts/create/CreateContainer'
+import SignContainer from './layouts/sign/SignContainer'
 
 // Styles
 import './css/oswald.css'
@@ -13,7 +13,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={HomeContainer}/>
+        <Route exact path="/" component={CreateContainer}/>
+        <Route path="/:document_id" component={SignContainer}/>
       </div>
     );
   }
