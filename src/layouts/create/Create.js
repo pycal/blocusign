@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
-import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
+import Upload from './Upload';
+import { AccountData, ContractData } from 'drizzle-react-components'
+import CustomContractForm from '../../components/CustomContractForm'
 
 class Create extends Component {
+  constructor() {
+    super();
+    this.onUpload = this.onUpload.bind(this);
+    this.state = {};
+  }
+
+  onUpload(fileHash) {
+    console.log('fileHash', fileHash);
+    this.setState({added_file_hash: fileHash})
+     // href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
+  }
   render() {
     return (
       <main className="container">
@@ -13,8 +26,15 @@ class Create extends Component {
           </div>
 
           <div className="pure-u-1-1">
+            <h2>Upload Document</h2>
+            <Upload onUpload={this.onUpload}/>
+            <div>File Hash: {this.state.added_file_hash}</div>
+            <br/><br/>
+          </div>
+
+          <div className="pure-u-1-1">
             <h2>Active Account</h2>
-            <AccountData accountIndex="0" units="ether" precision="3" />
+
 
             <br/><br/>
           </div>
@@ -23,8 +43,8 @@ class Create extends Component {
             <ContractData contract="BlocUSign" method="symbol" />
             <ContractData contract="BlocUSign" method="name" />
 
-            <ContractForm contract="BlocUSign" method="createDocument" />
-            <ContractForm contract="BlocUSign" method="sign" />
+            <CustomContractForm contract="BlocUSign" method="createDocument" methodArgs={{"_data": this.state.added_file_hash}}/>
+            <CustomContractForm contract="BlocUSign" method="sign" />
           </div>
         </div>
       </main>
