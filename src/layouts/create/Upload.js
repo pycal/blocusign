@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ipfsAPI from 'ipfs-api'
-import Dropzone from 'react-dropzone'
+import ReactDropzone from 'react-dropzone'
 import {AccountData, ContractData, ContractForm} from "drizzle-react-components";
 
 class Upload extends React.Component {
@@ -16,7 +16,7 @@ class Upload extends React.Component {
   onDrop(files) {
 
     this.setState({
-      files
+      files: this.state.files.concat(files)
     });
     const file = files[0]
     let reader = new window.FileReader()
@@ -39,12 +39,39 @@ class Upload extends React.Component {
   }
 
   render() {
+    const previewStyle = {
+      display: 'inline',
+      width: 100,
+      height: 100,
+    };
+
+    let dropzoneStyle = {
+
+    };
+
     return (
       <section>
-        <div className="dropzone">
-          <Dropzone onDrop={this.onDrop.bind(this)}>
-            <p>Try dropping some files here, or click to select files to upload.</p>
-          </Dropzone>
+        <div>
+          <ReactDropzone onDrop={this.onDrop.bind(this)} className="dropzone">
+            {this.state.files.length == 0 &&
+              <Fragment>
+                <p>Upload your contract file.</p>
+              </Fragment>
+             }
+            {this.state.files.length > 0 &&
+              <Fragment>
+                {this.state.files.map((file) => (
+                  <img
+                    alt="Preview"
+                    key={file.preview}
+                    src={file.preview}
+                    style={previewStyle}
+                  />
+                ))}
+              </Fragment>
+            }
+          </ReactDropzone>
+
         </div>
         <aside>
           <h2>Dropped files</h2>

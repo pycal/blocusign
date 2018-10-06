@@ -108,3 +108,19 @@ ul li:not(:last-child) {
   background: darkseagreen;
   border: 1px solid darkgreen;
 }
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.dropzone img {
+  margin: 0 auto;
+  display: inline-block;
+}
