@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ipfsAPI = from ('ipfs-api')
+import ipfsAPI from 'ipfs-api'
 import Dropzone from 'react-dropzone'
 import {AccountData, ContractData, ContractForm} from "drizzle-react-components";
 
