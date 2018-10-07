@@ -7,7 +7,23 @@ class Create extends Component {
   constructor() {
     super();
     this.onUpload = this.onUpload.bind(this);
-    this.state = {};
+
+    this.state = {
+      createDocumentArgs: {}
+    };
+
+  }
+
+  componentDidMount() {
+    React.socket.on('bloom_payload', (payload) => {
+      console.log('payload', payload);
+      // this.setState({
+      //   createDocumentArgs: {
+      //     ...this.state.createDocumentArgs,
+      //     _signatory
+      //   }
+      // })
+    })
   }
 
   onUpload(fileHash) {
@@ -43,7 +59,7 @@ class Create extends Component {
             <ContractData contract="BlocUSign" method="symbol" />
             <ContractData contract="BlocUSign" method="name" />
 
-            <CustomContractForm contract="BlocUSign" method="createDocument" methodArgs={{"_data": this.state.added_file_hash}}/>
+            <CustomContractForm contract="BlocUSign" method="createDocument" methodArgs={this.state.createDocumentArgs}/>
             <CustomContractForm contract="BlocUSign" method="sign" />
           </div>
         </div>
