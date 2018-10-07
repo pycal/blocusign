@@ -5,10 +5,13 @@ import { AccountData, ContractData } from 'drizzle-react-components'
 import CustomContractForm from '../../components/CustomContractForm'
 
 class Create extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props);
     this.onUpload = this.onUpload.bind(this);
     this.state = {};
+
+    var contract = context.drizzle.contracts["BlocUSign"];
+    this.totalSupplyKey = contract.methods["totalSupply"].cacheCall();
   }
 
   onUpload(fileHash) {

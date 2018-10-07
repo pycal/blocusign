@@ -11,11 +11,12 @@ class Sign extends Component {
 
     this.handleSign = this.handleSign.bind(this);
 
-    this.state = { contract, documentState: false }
+    this.state = { contract, documentState: false, submitted: false }
   }
 
   handleSign() {
     this.state.contract.methods["sign"].cacheSend(this.props.documentId);
+    this.setState({submitted: true})
   }
 
   render() {
@@ -23,29 +24,31 @@ class Sign extends Component {
     const loadingClassName = documentState ? "circle-loader load-complete" : "circle-loader"
     const checkmarkClassName = documentState ? "checkmark draw checkmark-complete" : "checkmark draw"
 
+    console.log(documentState)
+
     const button = documentState ? (
       <button className="button-xlarge pure-button pure-button-primary sign-button" disabled>
         <i className="fa fa-file-contract fa-lg"></i> Signing Complete
       </button>
     ) : (
-      <button className="button-xlarge pure-button pure-button-primary sign-button" onClick={this.handleSign}>
+      <button className="button-xlarge pure-button pure-button-primary sign-button" onClick={this.handleSign} disabled={this.state.submitted}>
         <i className="fa fa-file-contract fa-lg"></i> Sign Document
       </button>
     );
 
-    const checkmark = documentState ? (
+    const checkmark = documentState || this.state.submitted ? (
       <div className="pure-u-1-1 checkmarkstate">
         <div className={loadingClassName}>
           <div className={checkmarkClassName}></div>
         </div>
       </div>
-    ) : ( undefined );
+    ) : undefined;
 
     return (
       <div className="pure-u-1-1 sub-container">
         <div className="pure-u-2-5">
           <div className="sub-container-sub">
-            <IPFSImageFromContractData contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /> 
+            <IPFSImageFromContractData hideIndicator={true} contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /> 
           </div>
         </div>
         <div className="pure-u-3-5">
@@ -55,8 +58,8 @@ class Sign extends Component {
               BlocuSign is a decentralized document signing platform. Your signature has been requested.
             </p>
             
-            <p><code><ContractData contract="BlocUSign" method="documentRequester" methodArgs={this.props.documentId} /></code>
-            is requesting your authorization from <code><ContractData contract="BlocUSign" method="documentSignatory" methodArgs={this.props.documentId} /></code> for the document located at <code><ContractData contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /></code> on IPFS.</p> 
+            <p><code><ContractData hideIndicator={true} contract="BlocUSign" method="documentRequester" methodArgs={this.props.documentId} /></code>
+            is requesting your authorization from <code><ContractData hideIndicator={true} contract="BlocUSign" method="documentSignatory" methodArgs={this.props.documentId} /></code> for the document located at <code><ContractData hideIndicator={true} contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /></code></p> 
 
             {checkmark}
 
