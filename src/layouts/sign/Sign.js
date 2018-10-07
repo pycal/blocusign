@@ -15,6 +15,19 @@ class Sign extends Component {
     this.state = { contract, documentState: false }
   }
 
+  
+  componentDidMount() {
+    React.socket.on('bloom_payload', (payload) => {
+      console.log('payload', payload);
+      // this.setState({
+      //   createDocumentArgs: {
+      //     ...this.state.createDocumentArgs,
+      //     _signatory
+      //   }
+      // })
+    })
+  }
+
   handleSign() {
     this.state.contract.methods["sign"].cacheSend(this.props.documentId);
   }

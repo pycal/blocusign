@@ -5,7 +5,7 @@ const BloomRequest: React.SFC = props => {
   const requestData: RequestData = {
     action: "request_attestation_data",
     token: '0x8f31e48a585fd12ba58e70e03292cac712cbae39bc7eb980ec189aa88e24d043',
-    url: 'https://17539714.ngrok.io/bloom_resp_relay',
+    url: 'https://eb83d393.ngrok.io/bloom_payload',
     org_logo_url: 'https://bloom.co/images/notif/bloom-logo.png',
     org_name: 'BlocUSign',
     org_usage_policy_url: 'https://bloom.co/legal/terms',

@@ -14,18 +14,6 @@ class Create extends Component {
 
   }
 
-  componentDidMount() {
-    React.socket.on('bloom_payload', (payload) => {
-      console.log('payload', payload);
-      // this.setState({
-      //   createDocumentArgs: {
-      //     ...this.state.createDocumentArgs,
-      //     _signatory
-      //   }
-      // })
-    })
-  }
-
   onUpload(fileHash) {
     console.log('fileHash', fileHash);
     this.setState({added_file_hash: fileHash})

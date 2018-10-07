@@ -38,6 +38,7 @@
     "html-webpack-plugin": "2.29.0",
     "ipfs-api": "^24.0.2",
     "jest": "20.0.4",
+    "nodemon": "^1.18.4",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -67,6 +68,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start-server": "nodemon ./server/bin/www",
     "build": "truffle compile && node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "chain": "ganache-cli",
