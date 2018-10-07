@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Upload from './Upload';
+import Upload from './Upload'
+import SignContract from '../../components/SignContract'
 import { AccountData, ContractData } from 'drizzle-react-components'
 import CustomContractForm from '../../components/CustomContractForm'
 
@@ -18,7 +19,9 @@ class Create extends Component {
     this.setState({added_file_hash: fileHash})
      // href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
   }
+
   render() {
+
     const totalSupply = this.props.BlocUSign["totalSupply"].hasOwnProperty(this.totalSupplyKey) ? this.props.BlocUSign["totalSupply"][this.totalSupplyKey].value : undefined;
 
     return (
@@ -35,6 +38,7 @@ class Create extends Component {
             <p>
               Blocusign is a decentralized document signing service. Upload a document, and choose an addressee you'd like to sign the document.
             </p>
+            <SignContract/>
             <CustomContractForm totalSupply={totalSupply} contract="BlocUSign" method="createDocument" labels={["Signatory address", "IPFS document hash"]} methodArgs={{"_data": this.state.added_file_hash}}/>
           </div>
         </div>
