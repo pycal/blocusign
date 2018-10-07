@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
 import IPFSImageFromContractData from '../../components/IPFSImageFromContractData'
+import BloomRequest from './BloomRequest.js'
 
 class Sign extends Component {
   constructor(props, context) {
@@ -59,7 +60,7 @@ class Sign extends Component {
             is requesting your authorization from <code><ContractData contract="BlocUSign" method="documentSignatory" methodArgs={this.props.documentId} /></code> for the document located at <code><ContractData contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /></code> on IPFS.</p> 
 
             {checkmark}
-
+            <BloomRequest/>
             {button}
           </div>
         </div>
