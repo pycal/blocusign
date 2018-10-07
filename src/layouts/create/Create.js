@@ -8,10 +8,14 @@ class Create extends Component {
   constructor(props, context) {
     super(props);
     this.onUpload = this.onUpload.bind(this);
-    this.state = {};
 
     var contract = context.drizzle.contracts["BlocUSign"];
     this.totalSupplyKey = contract.methods["totalSupply"].cacheCall();
+
+    this.state = {
+      createDocumentArgs: {}
+    };
+
   }
 
   onUpload(fileHash) {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
 import IPFSImageFromContractData from '../../components/IPFSImageFromContractData'
+import BloomRequest from './BloomRequest.js'
 
 class Sign extends Component {
   constructor(props, context) {
@@ -12,6 +13,19 @@ class Sign extends Component {
     this.handleSign = this.handleSign.bind(this);
 
     this.state = { contract, documentState: false, submitted: false }
+  }
+
+  
+  componentDidMount() {
+    React.socket.on('bloom_payload', (payload) => {
+      console.log('payload', payload);
+      // this.setState({
+      //   createDocumentArgs: {
+      //     ...this.state.createDocumentArgs,
+      //     _signatory
+      //   }
+      // })
+    })
   }
 
   handleSign() {
@@ -62,7 +76,7 @@ class Sign extends Component {
             is requesting your authorization from <code><ContractData hideIndicator={true} contract="BlocUSign" method="documentSignatory" methodArgs={this.props.documentId} /></code> for the document located at <code><ContractData hideIndicator={true} contract="BlocUSign" method="documentData" methodArgs={this.props.documentId} /></code></p> 
 
             {checkmark}
-
+            <BloomRequest/>
             {button}
           </div>
         </div>
