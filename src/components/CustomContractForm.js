@@ -20,7 +20,7 @@ class CustomContractForm extends Component {
 
     this.inputs = [];
     console.log('props: ', this.props)
-    var initialState = {};
+    var initialState = { submitted: false };
 
     // Iterate over abi for correct function.
     for (var i = 0; i < abi.length; i++) {
@@ -35,22 +35,30 @@ class CustomContractForm extends Component {
         }
     }
 
+    this.totalSupplyKey = this.contracts[this.props.contract].methods["totalSupply"].cacheCall();
+
     this.state = initialState;
   }
 
-componentDidUpdate(prevProps) {
-  // Typical usage (don't forget to compare props):
-  if (this.props.methodArgs !== prevProps.methodArgs) {
-    this.setState({...this.props.methodArgs})
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.methodArgs !== prevProps.methodArgs) {
+      this.setState({...this.props.methodArgs})
+    }
+
+    if (this.state.submitted && this.props.totalSupply !== prevProps.totalSupply) {
+      this.setState({ newLink: `http://localhost:3000/${this.props.totalSupply}` })
+    }
   }
-}
 
   handleSubmit() {
     if (this.props.sendArgs) {
-      return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), this.props.sendArgs);
+      return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values({ _signatory: this.state._signatory, _data: this.state._data }), this.props.sendArgs);
     }
 
-    this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state));
+    this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values({ _signatory: this.state._signatory, _data: this.state._data }));
+
+    this.setState({ submitted: true })
   }
 
   handleInputChange(event) {
@@ -74,15 +82,37 @@ componentDidUpdate(prevProps) {
   }
 
   render() {
+    const circleClassName = this.state.newLink ? "circle-loader load-complete" : "circle-loader";
+    const chechmarkClassName = this.state.newLink ? "checkmark draw checkmark-complete" : "checkmark draw";
+
+    const checkmark = (
+      <div className="pure-u-1-1 checkmarkstate">
+        <div className={circleClassName}>
+          <div className={chechmarkClassName}></div>
+        </div>
+        {this.state.newLink ? (
+          <div>
+            <br/><br/>
+            <label>Document NFT available for signatory</label>
+            <input type="text" value={this.state.newLink} />
+          </div>
+        ) : undefined}
+      </div>
+    );
+
     return (
       <form className="pure-form pure-form-stacked">
         {this.inputs.map((input, index) => {            
             var inputType = this.translateType(input.type)
             var inputLabel = this.props.labels ? this.props.labels[index] : input.name
             // check if input type is struct and if so loop out struct fields as well
-            return (<input key={input.name} type={inputType} name={input.name} value={this.state[input.name]} placeholder={inputLabel} onChange={this.handleInputChange} />)
+            return (<input key={input.name} type={inputType} name={input.name} value={this.state[input.name]} placeholder={inputLabel} onChange={this.handleInputChange} disabled={this.state.submitted} />)
         })}
-        <button key="submit" className="pure-button" type="button" onClick={this.handleSubmit}>Submit</button>
+        {this.state.submitted ? checkmark : undefined}
+
+        <button key="submit" className="button-xlarge pure-button pure-button-primary sign-button" type="button" onClick={this.handleSubmit} disabled={this.state.submitted} >
+          <i className="fa fa-arrow-alt-circle-right fa-lg"></i> Create BlocuSign NFT Document
+        </button>
       </form>
     )
   }

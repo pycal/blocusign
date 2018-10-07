@@ -12,6 +12,8 @@ contract BlocUSign is ERC721Token {
 
     event DocumentSigned(uint256 indexed _documentId);
 
+    event DocumentCreated(uint256 indexed _documentId);
+
     enum State {
         Unsigned,
         Signed
@@ -51,6 +53,7 @@ contract BlocUSign is ERC721Token {
             signatory: _signatory,
             data: _data
         });
+        DocumentCreated(newId);
     }
     
     function sign(uint256 _documentId) public {

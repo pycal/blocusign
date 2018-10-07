@@ -4,10 +4,13 @@ import { AccountData, ContractData } from 'drizzle-react-components'
 import CustomContractForm from '../../components/CustomContractForm'
 
 class Create extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props);
     this.onUpload = this.onUpload.bind(this);
     this.state = {};
+
+    var contract = context.drizzle.contracts["BlocUSign"];
+    this.totalSupplyKey = contract.methods["totalSupply"].cacheCall();
   }
 
   onUpload(fileHash) {
@@ -16,38 +19,26 @@ class Create extends Component {
      // href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
   }
   render() {
+    const totalSupply = this.props.BlocUSign["totalSupply"].hasOwnProperty(this.totalSupplyKey) ? this.props.BlocUSign["totalSupply"][this.totalSupplyKey].value : undefined;
+
     return (
-      <main className="container">
-        <div className="pure-g">
-          <div className="pure-u-1-1 header">
-            <h1>BlocUSign</h1>
-
-            <br/><br/>
-          </div>
-
-          <div className="pure-u-1-1">
+      <div className="pure-u-1-1 sub-container">
+        <div className="pure-u-2-5">
+          <div className="sub-container-sub">
             <h2>Upload Document</h2>
             <Upload onUpload={this.onUpload}/>
-            <div>File Hash: {this.state.added_file_hash}</div>
-            <br/><br/>
-          </div>
-
-          <div className="pure-u-1-1">
-            <h2>Active Account</h2>
-
-
-            <br/><br/>
-          </div>
-
-          <div className="pure-u-1-1">
-            <ContractData contract="BlocUSign" method="symbol" />
-            <ContractData contract="BlocUSign" method="name" />
-
-            <CustomContractForm contract="BlocUSign" method="createDocument" methodArgs={{"_data": this.state.added_file_hash}}/>
-            <CustomContractForm contract="BlocUSign" method="sign" />
           </div>
         </div>
-      </main>
+
+        <div className="pure-u-3-5">
+          <div className="sub-container-sub">
+            <p>
+              Blocusign is a decentralized document signing service. Upload a document, and choose an addressee you'd like to sign the document.
+            </p>
+            <CustomContractForm totalSupply={totalSupply} contract="BlocUSign" method="createDocument" labels={["Signatory address", "IPFS document hash"]} methodArgs={{"_data": this.state.added_file_hash}}/>
+          </div>
+        </div>
+      </div>
     )
   }
 }

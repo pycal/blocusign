@@ -12,7 +12,7 @@ const drizzleOptions = {
     BlocUSign
   ],
   events: {
-    BlocUSign: ['DocumentSigned']
+    BlocUSign: ['DocumentCreated', 'DocumentSigned']
   },
   polls: {
     accounts: 1500

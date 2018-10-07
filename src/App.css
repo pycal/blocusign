@@ -7,6 +7,7 @@ html {
   background-size: cover;
   background-repeat:no-repeat;
   background-image: linear-gradient(to bottom, #a18cd1 0%, #fbc2eb 100%);
+  min-height: 100%;
 }
 
 body,
@@ -31,7 +32,7 @@ img {
 h1 {
   color: white;
   text-shadow: 3px 6px 0px rgba(75, 75, 75, 1);
-  font-size: 4em;
+  font-size: 5em;
 }
 
 h2 {
@@ -162,7 +163,7 @@ code {
 .circle-loader {
   margin-bottom: 7em/2;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-left-color:hsl(258, 44%, 37%) 0%;
+  border-left-color:hsl(258, 44%, 37%);
   animation: loader-spin 1.2s infinite linear;
   position: relative;
   display: inline-block;
@@ -177,7 +178,7 @@ code {
 .load-complete {
   -webkit-animation: none;
   animation: none;
-  border-color:hsl(258, 44%, 37%) 0%;
+  border-color:hsl(258, 44%, 37%);
   transition: border 500ms ease-out;
 }
 
@@ -242,17 +243,22 @@ code {
 }
 
 .dropzone {
-  background: white;
+  background: rgba(255,255,255,0.2);
   border-radius: 5px;
-  border: 2px dashed rgb(0, 135, 247);
+  border: 2px dashed hsl(258, 44%, 37%);
   border-image: none;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  padding: 5em 0;
 }
 
 .dropzone img {
-margin: 0 auto;
-display: inline-block;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.pure-form, input {
+  width: 100%
 }

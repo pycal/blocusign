@@ -41,13 +41,23 @@ class Upload extends React.Component {
   render() {
     const previewStyle = {
       display: 'inline',
-      width: 100,
-      height: 100,
+      width: 200
     };
 
     let dropzoneStyle = {
 
     };
+
+    const uploadData = this.state.files.length > 0 ? (
+      <aside>
+        <h2>Document Data</h2>
+        <ul>
+          {
+            this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
+          }
+        </ul>
+      </aside>
+    ) : undefined;
 
     return (
       <section>
@@ -55,7 +65,7 @@ class Upload extends React.Component {
           <ReactDropzone onDrop={this.onDrop.bind(this)} className="dropzone">
             {this.state.files.length == 0 &&
               <Fragment>
-                <p>Upload your contract file.</p>
+                <p>Drag and drop your document</p>
               </Fragment>
              }
             {this.state.files.length > 0 &&
@@ -73,14 +83,9 @@ class Upload extends React.Component {
           </ReactDropzone>
 
         </div>
-        <aside>
-          <h2>Dropped files</h2>
-          <ul>
-            {
-              this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
-            }
-          </ul>
-        </aside>
+        
+        {uploadData}
+    
       </section>
     );
   }
