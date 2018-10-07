@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Upload from './Upload';
+import Upload from './Upload'
+import SignContract from '../../components/SignContract'
 import { AccountData, ContractData } from 'drizzle-react-components'
 import CustomContractForm from '../../components/CustomContractForm'
 
@@ -15,13 +16,14 @@ class Create extends Component {
     this.setState({added_file_hash: fileHash})
      // href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
   }
+
   render() {
     return (
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1 header">
             <h1>BlocUSign</h1>
-
+            <SignContract/>
             <br/><br/>
           </div>
 
