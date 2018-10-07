@@ -47,7 +47,7 @@ class CustomContractForm extends Component {
     }
 
     if (this.state.submitted && this.props.totalSupply !== prevProps.totalSupply) {
-      this.setState({ newLink: `http://localhost:3000/${this.props.totalSupply}` })
+      this.setState({ newLink: `http://localhost:3001/${this.props.totalSupply}` })
     }
   }
 

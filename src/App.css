@@ -262,3 +262,14 @@ code {
 .pure-form, input {
   width: 100%
 }
+
+.bloomed {
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+svg { fill: currentColor }

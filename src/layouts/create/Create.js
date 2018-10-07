@@ -42,7 +42,6 @@ class Create extends Component {
             <p>
               Blocusign is a decentralized document signing service. Upload a document, and choose an addressee you'd like to sign the document.
             </p>
-            <SignContract/>
             <CustomContractForm totalSupply={totalSupply} contract="BlocUSign" method="createDocument" labels={["Signatory address", "IPFS document hash"]} methodArgs={{"_data": this.state.added_file_hash}}/>
           </div>
         </div>

@@ -11,7 +11,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircleOutline';
 class SignContract extends Component {
   constructor(props, context) {
     super(props);
-    this.state = {}
+    this.state = {
+      scanned_qr: true,
+      merkle_proofed: true,
+      signature_extracted: true,
+      execute_contract: true
+    }
   }
 
   render() {
